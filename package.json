@@ -1,0 +1,24 @@
+{
+  "name": "notes-server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/sarathsureshh/notes-server.git"
+  },
+  "author": "Sarath Suresh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/sarathsureshh/notes-server/issues"
+  },
+  "homepage": "https://github.com/sarathsureshh/notes-server#readme",
+  "dependencies": {
+    "dotenv": "^16.3.1",
+    "express": "^4.18.2",
+    "mongoose": "^8.0.1"
+  }
+}
