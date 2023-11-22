@@ -1,25 +1,31 @@
+var bodyParser = require("body-parser");
 const express = require("express");
-const mongoose = require("mongoose");
-require("dotenv").config();
+const envPort = process.env.PORT || 3000;
 
-mongoose
-  .connect(process.env.MONGO_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => console.log("Connected to MongoDB"))
-  .catch((err) => console.error("Error connecting to MongoDB:", err));
+const mongoUtil = require("./src/utils/mongoUtils");
+var notesService = require("./src/services/notesServices");
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+var routePath = express.Router();
+app.use(bodyParser.json());
 
-app.get("/health", (req, res) => {
-  res.status(200).json({ status: "OK" });
+//Initiate all the services
+notesService.services(routePath);
+
+app.use("/services", routePath);
+
+mongoUtil.connectToServer(function (err) {
+  if (err) {
+    console.error(err.stack);
+    return;
+  }
+  var server = app.listen(envPort, function () {
+    var host = server.address().address;
+    var port = server.address().port;
+    console.log(`Server listening at http://${host}:${port}`);
+  });
 });
 
-app.get("/", (req, res) => {
-  res.status(200).json({ status: "OK" });
-});
-app.listen(PORT, () => {
-  console.log(`Server running on port: ${PORT}`);
+process.on("uncaughtException", function (err) {
+  console.error(err.stack);
 });
