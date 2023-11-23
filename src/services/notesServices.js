@@ -1,6 +1,8 @@
 import {
   processCreateNotes,
   processDeleteNotes,
+  processGetNotes,
+  processUpdateNotes,
 } from "../process/processNotesData.js";
 
 export async function services(routePath) {
@@ -9,7 +11,7 @@ export async function services(routePath) {
   });
 
   routePath.get("/notes", async function (req, res) {
-    res.status(200).json({ status: "OK" });
+    await processGetNotes(req, res);
   });
 
   routePath.post("/notes", async function (req, res) {
@@ -17,7 +19,7 @@ export async function services(routePath) {
   });
 
   routePath.put("/notes", async function (req, res) {
-    res.status(200).json({ status: "OK" });
+    processUpdateNotes(req, res);
   });
 
   routePath.delete("/notes", async function (req, res) {

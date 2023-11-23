@@ -4,13 +4,11 @@ dotenv.config();
 
 let notes_db;
 
-export async function connectToServer(callback) {
+export async function initiateDb(callback) {
   const mongoUri = process.env.MONGO_URI;
   const notesDBName = process.env.NOTES_DB;
 
-  const notesClient = new MongoClient(mongoUri, {
-    useUnifiedTopology: true,
-  });
+  const notesClient = new MongoClient(mongoUri);
 
   try {
     await notesClient.connect();

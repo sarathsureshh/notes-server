@@ -5,7 +5,7 @@ dotenv.config();
 
 const envPort = process.env.PORT || 3000;
 
-import { connectToServer } from "./src/utils/mongoUtils.js";
+import { initiateDb } from "./src/utils/mongoUtils.js";
 import { services } from "./src/services/notesServices.js";
 
 const { json } = bodyParser;
@@ -16,9 +16,10 @@ app.use(json());
 //Initiate all the services
 services(routePath);
 
+//Appends /services to all the routes that come in
 app.use("/services", routePath);
 
-connectToServer(function (err) {
+initiateDb(function (err) {
   if (err) {
     console.error(err.stack);
     return;
