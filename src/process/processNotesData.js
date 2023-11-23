@@ -75,7 +75,7 @@ export async function processGetNotes(req, res) {
       let documents = await findFew(pageSize, pageNumber, "notes");
       if (documents.length > 0) {
         let response = {
-          status: "status",
+          status: "success",
           totalCount: totalCount || 0,
           pageNumber: pageNumber,
           pageSize: pageSize,
