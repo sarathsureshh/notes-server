@@ -1,20 +1,24 @@
-var bodyParser = require("body-parser");
-const express = require("express");
+import bodyParser from "body-parser";
+import express, { Router } from "express";
+import dotenv from "dotenv";
+dotenv.config();
+
 const envPort = process.env.PORT || 3000;
 
-const mongoUtil = require("./src/utils/mongoUtils");
-var notesService = require("./src/services/notesServices");
+import { connectToServer } from "./src/utils/mongoUtils.js";
+import { services } from "./src/services/notesServices.js";
 
+const { json } = bodyParser;
 const app = express();
-var routePath = express.Router();
-app.use(bodyParser.json());
+var routePath = Router();
+app.use(json());
 
 //Initiate all the services
-notesService.services(routePath);
+services(routePath);
 
 app.use("/services", routePath);
 
-mongoUtil.connectToServer(function (err) {
+connectToServer(function (err) {
   if (err) {
     console.error(err.stack);
     return;
