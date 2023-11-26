@@ -49,7 +49,7 @@ async function processInsertNewUser(respData, res) {
       idToken: data?.idToken,
       refreshToken: data?.refreshToken,
       timeCreated: Date.parse(new Date()) / 1000,
-      refreshTokenExpiryTime: BigInt(data?.expiresIn),
+      refreshTokenExpiryTime: data?.expiresIn
     };
     let resultId = await insertOne(insertObject, "users");
     if (resultId) {
