@@ -6,7 +6,8 @@ dotenv.config();
 const envPort = process.env.PORT || 3000;
 
 import { initiateDb } from "./src/utils/mongoUtils.js";
-import { services } from "./src/services/notesServices.js";
+import { notesServices } from "./src/services/notesServices.js";
+import { authServices } from "./src/services/authService.js";
 
 const { json } = bodyParser;
 const app = express();
@@ -14,7 +15,8 @@ var routePath = Router();
 app.use(json());
 
 //Initiate all the services
-services(routePath);
+authServices(routePath);
+notesServices(routePath);
 
 //Appends /services to all the routes that come in
 app.use("/services", routePath);

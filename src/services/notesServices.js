@@ -5,7 +5,7 @@ import {
   processUpdateNotes,
 } from "../process/processNotesData.js";
 
-export async function services(routePath) {
+export async function notesServices(routePath) {
   routePath.get("/health", async function (req, res) {
     res.status(200).json({ status: "OK" });
   });
