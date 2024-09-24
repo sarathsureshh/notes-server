@@ -83,9 +83,11 @@ export async function processGetNotes(req, res) {
         };
         res.status(200).json(response);
       } else {
-        res
-          .status(500)
-          .json({ status: "failure", failreReason: "Internal Server Error" });
+        res.status(200).json({
+          status: "success",
+          message: "data not found",
+          data: documents,
+        });
       }
     } else {
       res.status(400).json({
